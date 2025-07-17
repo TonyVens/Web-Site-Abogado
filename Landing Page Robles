@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lic. Daniel Robles - Abogado en Estados Unidos</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700;900&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Alpine.js for interactions -->
+    <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+    <style>
+        /* Custom styles to integrate Google Fonts with Tailwind */
+        body {
+            font-family: 'Open Sans', sans-serif;
+            background-color: #f8fafc; /* gray-50 */
+        }
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Merriweather', serif;
+        }
+        /* --- NEW: Enhanced Hero Background --- */
+        .hero-bg {
+            /* Using a professional, modern office image */
+            background-image: linear-gradient(rgba(1, 22, 56, 0.85), rgba(1, 22, 56, 0.85)), url('https://images.unsplash.com/photo-1521791136064-7986c2920216?q=80&w=2070&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed; /* NEW: Parallax effect */
+        }
+        /* --- NEW: Subtle glow effect for buttons --- */
+        .cta-button-glow {
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.3), 0 0 5px rgba(255, 255, 255, 0.2);
+        }
+        .cta-button-glow:hover {
+            box-shadow: 0 0 25px rgba(255, 255, 255, 0.5), 0 0 10px rgba(255, 255, 255, 0.3);
+        }
+        /* --- NEW: Styling for process connectors --- */
+        .process-step {
+            position: relative;
+            padding-bottom: 2rem;
+        }
+        @media (min-width: 768px) {
+            .process-step:not(:last-child)::after {
+                content: '';
+                position: absolute;
+                top: 2rem;
+                left: 50%;
+                width: 70%;
+                height: 2px;
+                background: linear-gradient(to right, #e5e7eb, #9ca3af, #e5e7eb);
+                transform: translateX(-50%);
+                z-index: -1;
+            }
+        }
+    </style>
+</head>
+<body class="text-gray-700">
+
+    <!-- Header & Navigation -->
+    <header x-data="{ mobileMenuOpen: false }" class="bg-white/90 backdrop-blur-lg shadow-md fixed top-0 left-0 right-0 z-50">
+        <div class="container mx-auto px-6 py-4">
+            <div class="flex items-center justify-between">
+                <!-- Logo -->
+                <a href="#inicio" class="flex items-center space-x-3">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-9 w-9 text-blue-900" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 21a9 9 0 009-9h-9V3A9 9 0 003 12h9v9z" />
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M13 2.05A9 9 0 0121.95 11h-8.9zM3.05 13A9 9 0 0111 3.05v8.95z" />
+                    </svg>
+                    <span class="text-xl font-bold text-gray-800 font-serif">Lic. Daniel Robles</span>
+                </a>
+
+                <!-- Desktop Menu -->
+                <nav class="hidden md:flex items-center space-x-6 lg:space-x-8">
+                    <a href="#inicio" class="text-gray-600 hover:text-blue-900 transition duration-300">Inicio</a>
+                    <a href="#sobre-mi" class="text-gray-600 hover:text-blue-900 transition duration-300">Sobre mí</a>
+                    <a href="#servicios" class="text-gray-600 hover:text-blue-900 transition duration-300">Servicios</a>
+                    <a href="#precios" class="text-gray-600 hover:text-blue-900 transition duration-300">Precios</a>
+                    <a href="#contacto" class="text-gray-600 hover:text-blue-900 transition duration-300">Contacto</a>
+                    <a href="#contacto" class="bg-blue-800 text-white px-5 py-2 rounded-lg font-semibold hover:bg-blue-900 transition-all duration-300 ease-in-out transform hover:scale-105">
+                        Solicitar Consulta
+                    </a>
+                </nav>
+
+                <!-- Mobile Menu Button -->
+                <div class="md:hidden">
+                    <button @click="mobileMenuOpen = !mobileMenuOpen" class="text-gray-700 focus:outline-none">
+                        <svg class="h-6 w-6" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
+                            <path :class="{'hidden': mobileMenuOpen, 'inline-flex': !mobileMenuOpen }" d="M4 6h16M4 12h16m-7 6h7"></path>
+                            <path :class="{'hidden': !mobileMenuOpen, 'inline-flex': mobileMenuOpen }" d="M6 18L18 6M6 6l12 12"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Mobile Menu -->
+            <div x-show="mobileMenuOpen" @click.away="mobileMenuOpen = false" class="md:hidden mt-4 space-y-2" x-transition:enter="transition ease-out duration-200" x-transition:enter-start="opacity-0 transform -translate-y-2" x-transition:enter-end="opacity-100 transform translate-y-0" x-transition:leave="transition ease-in duration-150" x-transition:leave-start="opacity-100 transform translate-y-0" x-transition:leave-end="opacity-0 transform -translate-y-2">
+                <a href="#inicio" @click="mobileMenuOpen = false" class="block px-4 py-2 text-gray-700 hover:bg-gray-200 rounded">Inicio</a>
+                <a href="#sobre-mi" @click="mobileMenuOpen = false" class="block px-4 py-2 text-gray-700 hover:bg-gray-200 rounded">Sobre mí</a>
+                <a href="#servicios" @click="mobileMenuOpen = false" class="block px-4 py-2 text-gray-700 hover:bg-gray-200 rounded">Servicios</a>
+                <a href="#precios" @click="mobileMenuOpen = false" class="block px-4 py-2 text-gray-700 hover:bg-gray-200 rounded">Precios</a>
+                <a href="#contacto" @click="mobileMenuOpen = false" class="block px-4 py-2 text-gray-700 hover:bg-gray-200 rounded">Contacto</a>
+                <a href="#contacto" @click="mobileMenuOpen = false" class="block mt-4 text-center bg-blue-800 text-white px-5 py-3 rounded-lg font-semibold hover:bg-blue-900 transition">Solicitar Consulta</a>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section id="inicio" class="hero-bg text-white pt-32 pb-20 md:pt-48 md:pb-32">
+            <div class="container mx-auto px-6 text-center">
+                <div class="max-w-4xl mx-auto">
+                    <!-- NEW: Replaced placeholder with a professional stock photo -->
+                    <img src="https://images.unsplash.com/photo-1568602471122-7832951cc4c5?q=80&w=2070&auto=format&fit=crop" alt="Retrato del Lic. Daniel Robles" class="w-36 h-36 md:w-48 md:h-48 object-cover rounded-full mx-auto mb-8 border-4 border-white/50 shadow-2xl" onerror="this.onerror=null;this.src='https://placehold.co/150x150/ffffff/333333?text=DR';">
+                    <h1 class="text-4xl md:text-6xl font-black mb-4 leading-tight drop-shadow-lg">Tu solución legal con profesionalismo y confianza</h1>
+                    <p class="text-lg md:text-xl text-gray-200 mb-8 max-w-2xl mx-auto drop-shadow-md">Servicios jurídicos personalizados en Estados Unidos. Protegemos tus intereses como si fueran los nuestros.</p>
+                    <!-- NEW: Added glow effect class -->
+                    <a href="#contacto" class="bg-white text-blue-900 px-8 py-4 rounded-lg font-bold text-lg hover:bg-gray-200 transition-all duration-300 ease-in-out transform hover:scale-105 inline-block cta-button-glow">Agenda tu consulta</a>
+                    <div class="mt-12 text-sm md:text-base text-gray-300 flex flex-wrap justify-center gap-x-4 gap-y-2">
+                        <span>Derecho migratorio</span>
+                        <span class="hidden md:inline">·</span>
+                        <span>Derecho civil</span>
+                        <span class="hidden md:inline">·</span>
+                        <span>Derecho comercial</span>
+                        <span class="hidden md:inline">·</span>
+                        <span>Asesoría empresarial</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sobre mí Section -->
+        <section id="sobre-mi" class="py-20 bg-white">
+            <div class="container mx-auto px-6">
+                <div class="grid md:grid-cols-2 gap-12 lg:gap-20 items-center">
+                    <div class="text-center md:text-left">
+                        <h2 class="text-3xl md:text-4xl font-bold text-blue-900 mb-4">Lic. Daniel Robles</h2>
+                        <p class="text-lg mb-6">Abogado con más de 12 años de experiencia en el mercado estadounidense, egresado de la Universidad de Columbia. Experto en ayudar a la comunidad latinoamericana a resolver sus desafíos legales en EE.UU.</p>
+                        <p class="text-gray-600 italic border-l-4 border-blue-200 pl-4">"Mi compromiso es ofrecerte una asesoría clara, honesta y efectiva. Juntos, encontraremos el mejor camino para tu tranquilidad y éxito."</p>
+                        <div class="mt-8 flex justify-center md:justify-start space-x-6">
+                            <div class="text-center">
+                                <div class="bg-blue-100 p-3 rounded-full inline-block">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-blue-800" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6.253v11.494m-9-5.747h18" /></svg>
+                                </div>
+                                <p class="text-xs mt-2 font-semibold text-gray-600">American Bar<br>Association</p>
+                            </div>
+                            <div class="text-center">
+                                <div class="bg-blue-100 p-3 rounded-full inline-block">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-blue-800" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9V3" /></svg>
+                                </div>
+                                <p class="text-xs mt-2 font-semibold text-gray-600">Certificado en<br>Derecho Internacional</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="relative">
+                        <!-- NEW: Replaced placeholder with a professional stock photo -->
+                        <img src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?q=80&w=2070&auto=format&fit=crop" alt="Oficina del Lic. Daniel Robles" class="rounded-lg shadow-2xl w-full h-full object-cover" onerror="this.onerror=null;this.src='https://placehold.co/600x400/E2E8F0/333333?text=Oficina';">
+                        <!-- NEW: Decorative element -->
+                        <div class="absolute -bottom-4 -right-4 w-32 h-32 bg-blue-50 rounded-lg -z-10"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Servicios Section -->
+        <section id="servicios" class="py-20 bg-gray-50">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-16">
+                    <h2 class="text-3xl md:text-4xl font-bold text-blue-900">Áreas de Práctica</h2>
+                    <p class="text-lg mt-2 text-gray-600 max-w-2xl mx-auto">Ofrecemos asesoría especializada en diversas áreas para proteger tus derechos e intereses.</p>
+                </div>
+                <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+                    <!-- Service Card 1 -->
+                    <div class="bg-white p-8 rounded-lg shadow-xl hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 ease-in-out border-b-4 border-transparent hover:border-blue-800">
+                        <div class="bg-blue-100 text-blue-800 rounded-full h-16 w-16 flex items-center justify-center mb-6">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" /><path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
+                        </div>
+                        <h3 class="text-xl font-bold mb-3 text-gray-800">Derecho Migratorio</h3>
+                        <p class="text-gray-600">Asesoría completa en visas, peticiones de residencia, procesos de ciudadanía y defensa contra deportación.</p>
+                    </div>
+                    <!-- Service Card 2 -->
+                    <div class="bg-white p-8 rounded-lg shadow-xl hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 ease-in-out border-b-4 border-transparent hover:border-blue-800">
+                        <div class="bg-blue-100 text-blue-800 rounded-full h-16 w-16 flex items-center justify-center mb-6">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg>
+                        </div>
+                        <h3 class="text-xl font-bold mb-3 text-gray-800">Derecho Civil</h3>
+                        <p class="text-gray-600">Redacción y revisión de contratos, representación en demandas, gestión de herencias y disputas de propiedad.</p>
+                    </div>
+                    <!-- Service Card 3 -->
+                    <div class="bg-white p-8 rounded-lg shadow-xl hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 ease-in-out border-b-4 border-transparent hover:border-blue-800">
+                        <div class="bg-blue-100 text-blue-800 rounded-full h-16 w-16 flex items-center justify-center mb-6">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>
+                        </div>
+                        <h3 class="text-xl font-bold mb-3 text-gray-800">Derecho Comercial</h3>
+                        <p class="text-gray-600">Constitución de empresas (LLC, Corp), litigios comerciales, acuerdos entre socios y protección de marca.</p>
+                    </div>
+                    <!-- Service Card 4 -->
+                    <div class="bg-white p-8 rounded-lg shadow-xl hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 ease-in-out border-b-4 border-transparent hover:border-blue-800">
+                        <div class="bg-blue-100 text-blue-800 rounded-full h-16 w-16 flex items-center justify-center mb-6">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z" /></svg>
+                        </div>
+                        <h3 class="text-xl font-bold mb-3 text-gray-800">Asesoría Empresarial</h3>
+                        <p class="text-gray-600">Consultoría legal continua para tu negocio, asegurando cumplimiento normativo y mitigando riesgos.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Consultas y Proceso Section -->
+        <section id="consultas" class="py-20 bg-white">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-16">
+                    <h2 class="text-3xl md:text-4xl font-bold text-blue-900">Proceso de Consulta Sencillo</h2>
+                    <p class="text-lg mt-2 text-gray-600 max-w-2xl mx-auto">Agendar una consulta es fácil y transparente. Te guiamos en cada paso.</p>
+                </div>
+                <!-- NEW: Added process-step class and connectors -->
+                <div class="grid md:grid-cols-3 gap-8 text-center mb-16">
+                    <!-- Step 1 -->
+                    <div class="process-step">
+                        <div class="bg-blue-800 text-white rounded-full h-20 w-20 flex items-center justify-center mx-auto text-3xl font-bold shadow-lg">1</div>
+                        <h3 class="text-xl font-bold mt-6 mb-2">Completa el Formulario</h3>
+                        <p>Envíanos tus datos y un breve resumen de tu caso a través de nuestro formulario de contacto seguro.</p>
+                    </div>
+                    <!-- Step 2 -->
+                    <div class="process-step">
+                        <div class="bg-blue-800 text-white rounded-full h-20 w-20 flex items-center justify-center mx-auto text-3xl font-bold shadow-lg">2</div>
+                        <h3 class="text-xl font-bold mt-6 mb-2">Recibe una Respuesta</h3>
+                        <p>Nuestro equipo te contactará en menos de 24 horas para agendar tu reunión y confirmar los detalles.</p>
+                    </div>
+                    <!-- Step 3 -->
+                    <div class="process-step">
+                        <div class="bg-blue-800 text-white rounded-full h-20 w-20 flex items-center justify-center mx-auto text-3xl font-bold shadow-lg">3</div>
+                        <h3 class="text-xl font-bold mt-6 mb-2">Ten tu Reunión</h3>
+                        <p>Nos reuniremos virtualmente o en nuestra oficina de Nueva York para analizar tu caso a fondo.</p>
+                    </div>
+                </div>
+
+                <!-- FAQ Accordion -->
+                <div class="max-w-3xl mx-auto" x-data="{ activeAccordion: 'faq1' }">
+                    <h3 class="text-2xl font-bold text-center mb-6 text-gray-800">Preguntas Frecuentes</h3>
+                    <!-- FAQ 1 -->
+                    <div class="border-b">
+                        <button @click="activeAccordion = activeAccordion === 'faq1' ? '' : 'faq1'" class="w-full text-left py-4 px-2 flex justify-between items-center focus:outline-none">
+                            <span class="text-lg font-semibold text-gray-700">¿Cuáles son los costos de una consulta?</span>
+                            <svg :class="{'rotate-180': activeAccordion === 'faq1'}" class="w-5 h-5 text-gray-500 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </button>
+                        <div x-show="activeAccordion === 'faq1'" x-collapse class="p-4 pt-0 text-gray-600">
+                            <p>La consulta inicial tiene un costo fijo de $99 USD. Este monto puede ser acreditado a futuros servicios si decides contratarnos para tu caso. Ofrecemos total transparencia en nuestros honorarios desde el primer día.</p>
+                        </div>
+                    </div>
+                    <!-- FAQ 2 -->
+                    <div class="border-b">
+                        <button @click="activeAccordion = activeAccordion === 'faq2' ? '' : 'faq2'" class="w-full text-left py-4 px-2 flex justify-between items-center focus:outline-none">
+                            <span class="text-lg font-semibold text-gray-700">¿Mi información es confidencial?</span>
+                            <svg :class="{'rotate-180': activeAccordion === 'faq2'}" class="w-5 h-5 text-gray-500 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </button>
+                        <div x-show="activeAccordion === 'faq2'" x-collapse class="p-4 pt-0 text-gray-600">
+                            <p>Absolutamente. Toda comunicación entre cliente y abogado está protegida por el secreto profesional. Garantizamos la máxima confidencialidad y seguridad en el manejo de tu información personal y legal.</p>
+                        </div>
+                    </div>
+                    <!-- FAQ 3 -->
+                    <div class="border-b">
+                        <button @click="activeAccordion = activeAccordion === 'faq3' ? '' : 'faq3'" class="w-full text-left py-4 px-2 flex justify-between items-center focus:outline-none">
+                            <span class="text-lg font-semibold text-gray-700">¿Atienden casos fuera de Nueva York?</span>
+                            <svg :class="{'rotate-180': activeAccordion === 'faq3'}" class="w-5 h-5 text-gray-500 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </button>
+                        <div x-show="activeAccordion === 'faq3'" x-collapse class="p-4 pt-0 text-gray-600">
+                            <p>Sí. Aunque nuestra oficina principal está en Manhattan, NY, ofrecemos servicios legales a clientes en todo Estados Unidos a través de consultas virtuales. El derecho migratorio, por ejemplo, es de carácter federal, lo que nos permite representarte sin importar en qué estado te encuentres.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Precios Section -->
+        <section id="precios" class="py-20 bg-gray-50">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-16">
+                    <h2 class="text-3xl md:text-4xl font-bold text-blue-900">Inversión Transparente</h2>
+                    <p class="text-lg mt-2 text-gray-600 max-w-2xl mx-auto">Creemos en la honestidad. Aquí tienes una guía de nuestros precios referenciales.</p>
+                </div>
+                <div class="grid md:grid-cols-3 gap-8">
+                    <!-- Pricing Card 1 -->
+                    <div class="bg-white p-8 rounded-lg shadow-lg text-center transition-transform transform hover:scale-105">
+                        <h3 class="text-xl font-bold mb-2 text-gray-800">Consulta Inicial</h3>
+                        <p class="text-4xl font-extrabold text-blue-900 mb-4">$99 <span class="text-lg font-normal text-gray-500">USD</span></p>
+                        <ul class="text-gray-600 space-y-2 mb-6">
+                            <li>Análisis del caso (hasta 45 min)</li>
+                            <li>Recomendaciones iniciales</li>
+                            <li>Acreditable a servicios futuros</li>
+                        </ul>
+                    </div>
+                    <!-- Pricing Card 2 - Highlighted -->
+                    <div class="bg-blue-900 text-white p-8 rounded-lg shadow-2xl text-center transition-transform transform scale-105 relative">
+                        <span class="absolute top-0 -translate-y-1/2 left-1/2 -translate-x-1/2 bg-yellow-400 text-blue-900 text-xs font-bold px-3 py-1 rounded-full uppercase">Más Popular</span>
+                        <h3 class="text-xl font-bold mb-2">Documentos Legales</h3>
+                        <p class="text-4xl font-extrabold mb-4"><span class="text-lg font-normal text-gray-300">Desde</span> $250</p>
+                        <ul class="text-gray-300 space-y-2 mb-6">
+                            <li>Contratos y acuerdos</li>
+                            <li>Cartas y notificaciones</li>
+                            <li>Revisión de documentos</li>
+                        </ul>
+                    </div>
+                    <!-- Pricing Card 3 -->
+                    <div class="bg-white p-8 rounded-lg shadow-lg text-center transition-transform transform hover:scale-105">
+                        <h3 class="text-xl font-bold mb-2 text-gray-800">Trámites Migratorios</h3>
+                        <p class="text-4xl font-extrabold text-blue-900 mb-4"><span class="text-lg font-normal text-gray-500">Desde</span> $899</p>
+                        <ul class="text-gray-600 space-y-2 mb-6">
+                            <li>Peticiones familiares</li>
+                            <li>Ajuste de estatus</li>
+                            <li>Solicitud de ciudadanía</li>
+                        </ul>
+                    </div>
+                </div>
+                <p class="text-center mt-8 text-sm text-gray-500">*Los precios son referenciales y pueden variar según la complejidad del caso. Se proporcionará una cotización exacta tras la consulta inicial.</p>
+            </div>
+        </section>
+
+        <!-- Testimonios Section -->
+        <section id="testimonios" class="py-20 bg-white">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-16">
+                    <h2 class="text-3xl md:text-4xl font-bold text-blue-900">Lo que dicen nuestros clientes</h2>
+                </div>
+                <div class="grid md:grid-cols-3 gap-8">
+                    <!-- Testimonial 1 -->
+                    <div class="bg-gray-50 p-8 rounded-lg shadow-lg">
+                        <div class="flex items-center mb-4">
+                            <img class="w-14 h-14 rounded-full object-cover mr-4" src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=1888&auto=format&fit=crop" alt="Avatar de María G.">
+                            <div>
+                                <p class="font-bold text-gray-800">- María G.</p>
+                                <p class="text-sm text-gray-500">Miami, FL</p>
+                            </div>
+                        </div>
+                        <p class="text-gray-600 italic">"El Lic. Robles me guió en todo mi proceso de residencia. Su profesionalismo y paciencia fueron clave. ¡Totalmente recomendado!"</p>
+                    </div>
+                    <!-- Testimonial 2 -->
+                    <div class="bg-gray-50 p-8 rounded-lg shadow-lg">
+                        <div class="flex items-center mb-4">
+                            <img class="w-14 h-14 rounded-full object-cover mr-4" src="https://images.unsplash.com/photo-1552058544-f2b08422138a?q=80&w=1888&auto=format&fit=crop" alt="Avatar de Carlos R.">
+                            <div>
+                                <p class="font-bold text-gray-800">- Carlos R.</p>
+                                <p class="text-sm text-gray-500">Houston, TX</p>
+                            </div>
+                        </div>
+                        <p class="text-gray-600 italic">"Necesitaba constituir mi empresa y no sabía por dónde empezar. Daniel me explicó todo de forma sencilla y se encargó de todo. Excelente servicio."</p>
+                    </div>
+                    <!-- Testimonial 3 -->
+                    <div class="bg-gray-50 p-8 rounded-lg shadow-lg">
+                        <div class="flex items-center mb-4">
+                            <img class="w-14 h-14 rounded-full object-cover mr-4" src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=2070&auto=format&fit=crop" alt="Avatar de Sofía P.">
+                            <div>
+                                <p class="font-bold text-gray-800">- Sofía P.</p>
+                                <p class="text-sm text-gray-500">New York, NY</p>
+                            </div>
+                        </div>
+                        <p class="text-gray-600 italic">"Tuve una disputa contractual y gracias a la asesoría del Lic. Robles, pude resolverla favorablemente sin llegar a juicio. Un abogado honesto y eficaz."</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contacto Section -->
+        <section id="contacto" class="py-20 bg-gray-800 text-white" style="background-image: linear-gradient(rgba(17, 24, 39, 0.9), rgba(17, 24, 39, 0.9)), url('https://images.unsplash.com/photo-1554147090-e1221a04a025?q=80&w=2070&auto=format&fit=crop'); background-size: cover; background-position: center;">
+            <div class="container mx-auto px-6">
+                <div class="grid md:grid-cols-2 gap-12 items-center">
+                    <div>
+                        <h2 class="text-3xl md:text-4xl font-bold mb-4">Inicia tu Consulta</h2>
+                        <p class="mb-6 text-gray-300">Completa el formulario y nos pondremos en contacto a la brevedad. Tu futuro legal empieza aquí.</p>
+                        <div class="space-y-4 text-lg">
+                            <p class="flex items-center"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-3 text-blue-400" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd" /></svg> Oficina en Manhattan, NY</p>
+                            <p class="flex items-center"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-3 text-blue-400" viewBox="0 0 20 20" fill="currentColor"><path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.518.759a11.03 11.03 0 004.28 4.28l.759-1.518a1 1 0 011.06-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z" /></svg> +1 (212) 555-0123</p>
+                            <p class="flex items-center"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-3 text-blue-400" viewBox="0 0 20 20" fill="currentColor"><path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z" /><path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z" /></svg> consulta@danielrobles.law</p>
+                        </div>
+                        <div class="flex space-x-4 mt-8">
+                            <a href="#" class="text-blue-400 hover:text-white transition"><svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24"><path d="M20.007 3.993A.997.997 0 0019.01 3H4.99C3.89 3 3 3.89 3 4.99v14.02C3 20.11 3.89 21 4.99 21h14.02c1.1 0 1.99-.89 1.99-1.99V4.99a.997.997 0 00-.993-.997zM8.5 18.5h-2v-7h2v7zm-1-8a1.5 1.5 0 11-.001-3.001A1.5 1.5 0 017.5 10.5zm8 8h-2v-3.5c0-.83-.02-1.9-1.16-1.9s-1.34.9-1.34 1.84V18.5h-2v-7h1.92v.87h.03c.26-.49.89-1 1.79-1 1.92 0 2.27 1.26 2.27 2.9v4.13z" /></svg></a>
+                            <a href="#" class="text-blue-400 hover:text-white transition"><svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24"><path d="M16.6 14.2c-.3-.2-1.1-.5-1.2-.6-.2-.1-.3-.1-.5.1-.2.2-.5.6-.6.7-.1.1-.2.2-.4.1-.2-.1-.8-.3-1.5-.9-.5-.5-.9-1.1-1-1.3-.1-.2 0-.3.1-.4l.2-.2c.1-.1.1-.2.2-.3.1-.1.1-.2 0-.3s-1.1-2.7-1.5-3.7c-.4-1-.8-.8-.9-.8-.2 0-.4 0-.5 0-.2 0-.5.1-.7.4-.2.3-.8 1-.8 2.3s.8 2.7 1 2.8c.1.1 1.7 2.6 4.1 3.6.6.2 1 .4 1.4.5.6.1 1.1.1 1.5.1.5-.1 1.1-.5 1.3-1 .2-.5.2-1 .1-1.1-.1-.1-.3-.2-.6-.4zM12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2zm0 18c-4.4 0-8-3.6-8-8s3.6-8 8-8 8 3.6 8 8-3.6 8-8 8z" /></svg></a>
+                        </div>
+                    </div>
+                    <div class="bg-white/95 backdrop-blur-sm p-8 rounded-lg shadow-2xl">
+                        <form action="#" method="POST" class="space-y-6">
+                            <div>
+                                <label for="name" class="block text-sm font-medium text-gray-700">Nombre Completo</label>
+                                <input type="text" name="name" id="name" required class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 text-gray-900">
+                            </div>
+                            <div>
+                                <label for="email" class="block text-sm font-medium text-gray-700">Correo Electrónico</label>
+                                <input type="email" name="email" id="email" required class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 text-gray-900">
+                            </div>
+                            <div>
+                                <label for="message" class="block text-sm font-medium text-gray-700">¿Cómo podemos ayudarte?</label>
+                                <textarea name="message" id="message" rows="4" required class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 text-gray-900"></textarea>
+                            </div>
+                            <div>
+                                <button type="submit" class="w-full flex justify-center py-3 px-4 border border-transparent rounded-md shadow-sm text-lg font-medium text-white bg-blue-800 hover:bg-blue-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-transform transform hover:scale-105">
+                                    Enviar Mensaje
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-gray-400">
+        <div class="container mx-auto px-6 py-12">
+            <div class="grid md:grid-cols-3 gap-8">
+                <div>
+                    <h3 class="text-lg font-bold text-white mb-4">Lic. Daniel Robles</h3>
+                    <p class="text-sm">Asesoría legal profesional para la comunidad latina en Estados Unidos.</p>
+                </div>
+                <div>
+                    <h3 class="text-lg font-bold text-white mb-4">Navegación</h3>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="#inicio" class="hover:text-white transition">Inicio</a></li>
+                        <li><a href="#sobre-mi" class="hover:text-white transition">Sobre mí</a></li>
+                        <li><a href="#servicios" class="hover:text-white transition">Servicios</a></li>
+                        <li><a href="#contacto" class="hover:text-white transition">Contacto</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-bold text-white mb-4">Aviso Legal</h3>
+                    <p class="text-sm">La información en este sitio web es solo para fines informativos y no constituye asesoramiento legal. La contratación de un abogado es una decisión importante que no debe basarse únicamente en anuncios. Este es un sitio web ficticio con fines de demostración.</p>
+                </div>
+            </div>
+            <div class="mt-12 border-t border-gray-800 pt-8 text-center text-sm">
+                <p>&copy; <span id="current-year"></span> Lic. Daniel Robles. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Set current year in footer
+        document.getElementById('current-year').textContent = new Date().getFullYear();
+    </script>
+
+</body>
+</html>
